@@ -1,0 +1,47 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Ajax using PHP and Jquery</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+$(document).ready( function() {
+
+$("#newform").submit(function(){
+$("#LoadingImage").show();
+$('.message').html('');
+	var data1 = $('#newform').serialize();
+	$.ajax({
+  type: "POST",
+  url: "process.php",
+  data: data1,
+  success: function(msg){
+	
+	 $("#LoadingImage").hide();
+	 
+	 $('.message').html(msg);
+	 
+	}
+	});
+	 return false;  
+});
+});
+</script>
+<form id="newform" method="post" action="process.php">
+
+        <label class="description" for="element_1">Username </label>
+        <div>
+            <input id="uname" name="username"  type="text" maxlength="255" value="" /> 
+        </div> 
+		<label class="description" for="element_1">Email </label>
+        <div>
+            <input id="email" name="email"  type="text" maxlength="255" value="" /> 
+        </div> 
+         <input id="submit" name="submit" type="submit" value="Submit" />
+		 <div class="message"></div>
+          <div id="LoadingImage" style="display: none">
+<img src="loader.gif" />
+</div>
+</form>
+</body>
+</html>
